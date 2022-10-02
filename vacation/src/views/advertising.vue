@@ -1,6 +1,5 @@
 <template>
     <div>
-        <!-- 查询封装 -->
         <query v-model.async="queryForm" :queryTable="queryTable" ref="clear">
             <template v-slot:slot_name="scope">
                 <el-button type="primary" @click="onSubmitQuery" icon="el-icon-search">查询</el-button>
@@ -8,13 +7,12 @@
                 <el-button type="primary" icon="el-icon-circle-plus-outline" @click="queryAdd">新增</el-button>
             </template>
         </query>
-        <!-- 表格封装 -->
         <TableTion :tableData="tableData" :column="column" :page="page" @handleCurrentChange="curren"
             @handleSizeChange="size"></TableTion>
     </div>
 </template>
 <script>
-import classify from '../api/classify'
+import advertising from '../api/advertising'
 export default {
     components: {
         query: () => import('../components/query.vue'),
@@ -22,11 +20,10 @@ export default {
     },
     data() {
         return {
-            tableData: [],//列表数据
-            //表单
+            tableData: [], //广告类表数据
             queryForm: {
-                name: "",
                 status: "",
+                title: "",
             },
             //分页
             page: {
@@ -37,8 +34,8 @@ export default {
             queryTable: [
                 {
                     type: "input",
-                    label: "分类名称",
-                    prop: "name"
+                    label: "广告标题",
+                    prop: "title"
                 },
                 {
                     type: "select",
@@ -51,55 +48,58 @@ export default {
                     name: "slot_name",
                 }
             ],
-            //表格
             column: [
                 {
-                    type: "index",
+                    type: 'index',
                     label: "序号"
                 },
                 {
-                    prop: "name",
-                    label: "分类名称"
+                    prop: "title",
+                    label: "广告标题"
                 },
                 {
-                    prop: "sort",
-                    label: "排序"
+                    type: "image",
+                    prop: "imageUrl",
+                    label: "广告图片",
                 },
                 {
-                    prop: "remark",
-                    label: "备注"
+                    prop: "advertTarget",
+                    label: "广告链接"
                 },
                 {
                     prop: "status",
-                    label: "状态"
+                    label: "广告状态"
                 },
                 {
+                    prop: "sort",
+                    label: "广告排序"
+                },
+                {
+                    type: 'action',
                     label: "操作",
-                    type: "action",
                     actions: [
                         {
+
                             text: "编辑"
                         },
                         {
                             type: "danger",
                             text: "删除",
-                            event: this.articleDel
+                            event: this.advertisingDel
                         },
-
                     ]
                 },
             ]
         };
     },
     created() {
-        this.classify()
+        this.advertising()
     },
-
     methods: {
         //查询
         onSubmitQuery() {
             this.page.current = 1
-            this.classify()
+            this.advertising()
         },
         //重置
         reset() {
@@ -109,41 +109,32 @@ export default {
         queryAdd() {
 
         },
-        //当前条数
-        curren(val) {
+         //当前条数
+         curren(val) {
             this.page.current = val
-            this.classify()
+            this.advertising()
         },
         //展示条数
         size(val) {
             this.page.size = val
-            this.classify()
+            this.advertising()
         },
         //删除
-        articleDel(value) {
-            this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
-                confirmButtonText: '确定',
-                cancelButtonText: '取消',
-                type: 'warning'
-            }).then(async () => {
-                const response = await classify.classifyDel(value.id)
-                console.log(response, 'del');
-                this.classify()
-                this.$message({
-                    type: 'success',
-                    message: '删除成功!'
-                });
-            }).catch(() => {
-                this.$message({
-                    type: 'info',
-                    message: '已取消删除'
-                });
-            });
-        },
-        //获取分类列表数据
-        async classify() {
+        async advertisingDel(value) {
             try {
-                const response = await classify.classifyList(this.page)
+                const response = await advertising.advertisingDel(value.id)
+                console.log(response);
+                this.$message.success('删除成功')
+                this.advertising()
+            } catch (e) {
+                console.log(e);
+            }
+
+        },
+        //获取广告列表数据
+        async advertising() {
+            try {
+                const response = await advertising.advertisingList(this.page)
                 console.log(response);
                 this.tableData = response.data.data.records
                 this.page.total = response.data.data.total

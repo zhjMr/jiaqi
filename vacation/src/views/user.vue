@@ -1,6 +1,6 @@
 <template>
     <div>
-        我是首页的内容
+        我是用户管理的内容
     </div>
 </template>
 <script>

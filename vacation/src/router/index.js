@@ -9,6 +9,7 @@ const routes = [
     path: '/',
     name: 'index',
     component: IndexView,
+    redirect: "/home",
     children: [
       {
         path: '/home',
@@ -29,7 +30,27 @@ const routes = [
         path: 'label',
         name: 'label',
         component: () => import('../views/label.vue')
-      }
+      },
+      {
+        path: 'advertising',
+        name: 'advertising',
+        component: () => import('../views/advertising.vue')
+      },
+      {
+        path: 'user',
+        name: 'user',
+        component: () => import('../views/user.vue')
+      },
+      {
+        path: 'role',
+        name: 'role',
+        component: () => import('../views/role.vue')
+      },
+      {
+        path: 'menu',
+        name: 'menu',
+        component: () => import('../views/menu.vue')
+      },
     ]
   },
 

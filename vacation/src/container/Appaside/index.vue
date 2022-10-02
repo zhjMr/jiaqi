@@ -18,19 +18,19 @@
                         <el-menu-item index="label"> <i class="el-icon-price-tag"></i>标签管理</el-menu-item>
                     </el-menu-item-group>
                 </el-submenu>
-                <el-menu-item index="4">
+                <el-menu-item index="advertising">
                     <i class="el-icon-orange"></i>
                     <span slot="title">广告管理</span>
                 </el-menu-item>
-                <el-submenu index="1">
+                <el-submenu index="system">
                     <template slot="title">
                         <i class="el-icon-setting"></i>
                         <span>系统管理</span>
                     </template>
                     <el-menu-item-group>
-                        <el-menu-item index="1-1"> <i class="el-icon-user"></i>用户管理</el-menu-item>
-                        <el-menu-item index="1-2"> <i class="el-icon-c-scale-to-original"></i>角色管理</el-menu-item>
-                        <el-menu-item index="1-2"> <i class="el-icon-printer"></i>菜单管理</el-menu-item>
+                        <el-menu-item index="user"> <i class="el-icon-user"></i>用户管理</el-menu-item>
+                        <el-menu-item index="role"> <i class="el-icon-c-scale-to-original"></i>角色管理</el-menu-item>
+                        <el-menu-item index="menu"> <i class="el-icon-printer"></i>菜单管理</el-menu-item>
                     </el-menu-item-group>
                 </el-submenu>
                 <el-menu-item index="4">

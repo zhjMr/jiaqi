@@ -1,13 +1,13 @@
 import request from '../utlis/request'
 
-const articleList = (data) => {
+const menuList = (data) => {
     return request({
-        url: `/article/article/search`,
+        url: "/system/menu/search",
         method: "POST",
-        data,
+        data
     })
 
 }
 export default {
-    articleList
+    menuList
 }

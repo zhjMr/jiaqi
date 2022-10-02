@@ -18,4 +18,18 @@ service.interceptors.response.use((config) => {
     return Promise.reject(error);
 }
 );
-export default service
+
+const request = (options) => {
+
+    options.method = options.method || 'get'
+    if (options.method.toLowerCase() === "get") {
+        options.params = options.data || options.params
+        delete options.data
+    }
+
+
+    service.defaults.baseURL = options.proxy || process.env.VUE_APP_BASE_API
+
+    return service(options)
+}
+export default request
